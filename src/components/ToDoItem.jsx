@@ -59,19 +59,12 @@ function ToDoItem({ todo }) {
   return (
     <div className={`${todo.completed ? "text-success" : "text-primary"} rounded my-3 p-2 border border-primary`}>
       <input type="checkbox" checked={todo.completed} onChange={markAsComplete} />
-      <input type="text"
+      <input type="text" height={}
         className={`w-75 mx-2 bg-transparent ${isTodoEditable ? "border border-dark" : "border border-0"} ${todo.completed ? "text-success font-italic text-decoration-line-through" : "text-primary"}`}
         value={todoMsg}
         onChange={(e) => setTodoMsg(e.target.value)}
         readOnly={!isTodoEditable}
       />
-
-      {/* <textarea
-        value={todoMsg}
-        onChange={(e) => setTodoMsg(e.target.value)}
-        readOnly={!isTodoEditable}
-        className={`w-75 mx-2 bg-transparent ${isTodoEditable ? "border border-dark" : "border border-0"} ${todo.completed ? "text-success font-italic text-decoration-line-through" : "text-primary"}`}>
-      </textarea> */}
 
       <div className="d-flex justify-content-between align-items-center">
         <i className="text-muted mr-1" style={{ fontSize: '14px' }}>
