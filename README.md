@@ -1,3 +1,5 @@
 # React + Vite + Bootstrap
+A ToDo List with React, Vite, Bootstrap and localStorage
 
-A ToDo List with React, Vite and Bootstrap
+# Checkout the demo 
+https://lavinamall.github.io/React-ToDo/
