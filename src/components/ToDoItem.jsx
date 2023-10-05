@@ -1,10 +1,14 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useToDo } from "../context"
+import dateFormat from "dateformat"
 
 function ToDoItem({ todo }) {
   const [todoMsg, setTodoMsg] = useState(todo.task)
   const [isTodoEditable, setIsTodoEditable] = useState(false)
   const { updateToDo, deleteToDo, isCompleted } = useToDo()
+
+  const milisToDate = (mili) => new Date(mili)
+  const [elapsedTime, setElapsedTime] = useState(calculateElapsedTime(todo.id)); // Initial elapsed time
 
   const handleEdit = () => {
     setIsTodoEditable(!isTodoEditable)
@@ -19,8 +23,42 @@ function ToDoItem({ todo }) {
     isCompleted(todo.id)
   }
 
+  // Calculate time elapsed since the task was created
+  function calculateElapsedTime(timestamp) {
+    const currentTime = new Date();
+    const elapsedTimeInMillis = currentTime - milisToDate(timestamp);
+    const elapsedTimeInSeconds = elapsedTimeInMillis / 1000;
+    return elapsedTimeInSeconds;
+  }
+
+  // Function to format elapsed time with appropriate units
+  function formatElapsedTime(elapsedTime) {
+    if (elapsedTime >= 3600) {
+      const hours = Math.floor(elapsedTime / 3600);
+      return `${hours} hour${hours !== 1 ? "s" : ""}`;
+    }
+    else if (elapsedTime >= 60) {
+      const minutes = Math.floor(elapsedTime / 60);
+      return `${minutes} minute${minutes !== 1 ? "s" : ""}`;
+    }
+    else {
+      return `${elapsedTime.toFixed(1)} second${elapsedTime !== 1 ? "s" : ""}`;
+    }
+  }
+
+
+  useEffect(() => {
+    // Update the elapsed time every second
+    const interval = setInterval(() => {
+      setElapsedTime((prevElapsedTime) => prevElapsedTime + 1);
+    }, 1000);
+
+    // Clear the interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className={`${todo.completed ? "text-success" : "text-primary"} rounded my-3 p-2 border border-primary d-flex`}>
+    <div className={`${todo.completed ? "text-success" : "text-primary"} rounded my-3 p-2 border border-primary`}>
       <input type="checkbox" checked={todo.completed} onChange={markAsComplete} />
       <input type="text"
         className={`w-75 mx-2 bg-transparent ${isTodoEditable ? "border border-dark" : "border border-0"} ${todo.completed ? "text-success font-italic text-decoration-line-through" : "text-primary"}`}
@@ -30,6 +68,10 @@ function ToDoItem({ todo }) {
       />
       <button className="btn btn-sm btn-rounded btn-primary me-2" type="button" onClick={handleEdit}>{`${isTodoEditable ? "Save" : "Edit"}`}</button>
       <button className="btn btn-sm btn-rounded btn-danger" type="button" onClick={handleDelete}>Delete</button>
+
+      <i className="text-muted" style={{ fontSize: '14px' }}>
+        added on: {dateFormat(milisToDate(todo.id), "")} | {formatElapsedTime(elapsedTime)} ago
+      </i>
     </div>
   )
 }
