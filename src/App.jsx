@@ -26,7 +26,10 @@ function App() {
 
   useEffect(() => {
     const todos = JSON.parse(localStorage.getItem("todoList"))
-    if (todos && todos.length > 0) setTodos(todos)
+    if (todos && todos.length > 0) {
+      setTodos(todos);
+      todos.sort((a,b) => a.completed - b.completed);
+    }
   }, [])
 
   useEffect(() => {
