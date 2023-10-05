@@ -23,7 +23,6 @@ function ToDoItem({ todo }) {
     isCompleted(todo.id)
   }
 
-  // Calculate time elapsed since the task was created
   function calculateElapsedTime(timestamp) {
     const currentTime = new Date();
     const elapsedTimeInMillis = currentTime - milisToDate(timestamp);
@@ -66,6 +65,13 @@ function ToDoItem({ todo }) {
         onChange={(e) => setTodoMsg(e.target.value)}
         readOnly={!isTodoEditable}
       />
+
+      {/* <textarea
+        value={todoMsg}
+        onChange={(e) => setTodoMsg(e.target.value)}
+        readOnly={!isTodoEditable}
+        className={`w-75 mx-2 bg-transparent ${isTodoEditable ? "border border-dark" : "border border-0"} ${todo.completed ? "text-success font-italic text-decoration-line-through" : "text-primary"}`}>
+      </textarea> */}
 
       <div className="d-flex justify-content-between align-items-center">
         <i className="text-muted mr-1" style={{ fontSize: '14px' }}>
