@@ -59,7 +59,7 @@ function ToDoItem({ todo }) {
   return (
     <div className={`${todo.completed ? "text-success" : "text-primary"} rounded my-3 p-2 border border-primary`}>
       <input type="checkbox" checked={todo.completed} onChange={markAsComplete} />
-      <input type="text" height={}
+      <input type="text"
         className={`w-75 mx-2 bg-transparent ${isTodoEditable ? "border border-dark" : "border border-0"} ${todo.completed ? "text-success font-italic text-decoration-line-through" : "text-primary"}`}
         value={todoMsg}
         onChange={(e) => setTodoMsg(e.target.value)}
