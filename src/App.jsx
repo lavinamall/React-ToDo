@@ -38,7 +38,7 @@ function App() {
 
   return (
     <ToDoProvider value={{ todos, addToDo, updateToDo, deleteToDo, isCompleted }}>
-      <div className="container w-75 bg-light mt-5 px-5 pb-2 rounded-5">
+      <div className="container-fluid bg-light mt-5 rounded-5">
         <h2 className="text-center font-weight-bold p-2">ToDo List</h2>
         <div className="row d-flex align-items-center justify-content-center">
           <div className="col-12 col-lg-8">

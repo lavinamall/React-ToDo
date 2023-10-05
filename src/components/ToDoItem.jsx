@@ -66,12 +66,22 @@ function ToDoItem({ todo }) {
         onChange={(e) => setTodoMsg(e.target.value)}
         readOnly={!isTodoEditable}
       />
-      <button className="btn btn-sm btn-rounded btn-primary me-2" type="button" onClick={handleEdit}>{`${isTodoEditable ? "Save" : "Edit"}`}</button>
-      <button className="btn btn-sm btn-rounded btn-danger" type="button" onClick={handleDelete}>Delete</button>
 
-      <i className="text-muted" style={{ fontSize: '14px' }}>
-        added on: {dateFormat(milisToDate(todo.id), "")} | {formatElapsedTime(elapsedTime)} ago
-      </i>
+      <div className="d-flex justify-content-between align-items-center">
+        <i className="text-muted mr-1" style={{ fontSize: '14px' }}>
+          added  <span className="d-none d-sm-inline">on: {dateFormat(milisToDate(todo.id), "")} | </span>
+          {formatElapsedTime(elapsedTime)} ago
+        </i>
+        <div className="">
+          <button className="btn btn-sm btn-rounded btn-primary mx-1" type="button" onClick={handleEdit}>
+            {`${isTodoEditable ? "Save" : "Edit"}`}
+          </button>
+          <button className="btn btn-sm btn-rounded btn-danger mx-2" type="button" onClick={handleDelete}>
+            Delete
+          </button>
+        </div>
+      </div>
+
     </div>
   )
 }
